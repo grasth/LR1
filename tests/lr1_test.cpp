@@ -1,45 +1,65 @@
 #include <gtest/gtest.h>
-#include <vector>
+#include "lr1.h"
 
-using namespace std;
+// Тесты на размеры массива
 
-// Объявление функции
-int countConsecutivePositivePairs(const std::vector<double>& array);
-
-// Тестовый класс
-class ConsecutivePositivePairsTest : public ::testing::Test {
-protected:
-    std::vector<double> arr;
-    int result;
-
-    void SetUp() override {
-        arr = { 1.2, -2.5, 3.4, 4.5, -1.2, 6.7, 8.9 };
-    }
-};
-
-// Пример теста 1
-TEST_F(ConsecutivePositivePairsTest, TestWithPositivePairs) {
-    result = countConsecutivePositivePairs(arr);
-    EXPECT_EQ(result, 3); // Ожидаем 3 пары подряд положительных чисел
+TEST(CountConsecutivePositivePairsTest, EmptyArray) {
+    std::vector<double> array = {};
+    EXPECT_EQ(countConsecutivePositivePairs(array), 0);
 }
 
-// Пример теста 2
-TEST_F(ConsecutivePositivePairsTest, TestWithNoPositivePairs) {
-    arr = { -1.2, -2.5, -3.4, -4.5 };
-    result = countConsecutivePositivePairs(arr);
-    EXPECT_EQ(result, 0); // Ожидаем 0 пар подряд положительных чисел
+TEST(CountConsecutivePositivePairsTest, SingleElementArray) {
+    std::vector<double> array = { 1.0 };
+    EXPECT_EQ(countConsecutivePositivePairs(array), 0);
 }
 
-// Пример теста 3
-TEST_F(ConsecutivePositivePairsTest, TestWithSingleElement) {
-    arr = { 1.0 };
-    result = countConsecutivePositivePairs(arr);
-    EXPECT_EQ(result, 0); // Ожидаем 0 пар, так как только один элемент
+TEST(CountConsecutivePositivePairsTest, ArraySize52) {
+    std::vector<double> array(53, 1.0);  // массив из 53 положительных элементов
+    EXPECT_EQ(countConsecutivePositivePairs(array), 52);  // 52 пары
 }
 
-// Пример теста 4
-TEST_F(ConsecutivePositivePairsTest, TestWithAllPositivePairs) {
-    arr = { 1.0, 2.0, 3.0, 4.0 };
-    result = countConsecutivePositivePairs(arr);
-    EXPECT_EQ(result, 3); // Ожидаем 3 пары, так как все числа положительные
+// Дополнительные тесты с увеличением размера массива
+
+TEST(CountConsecutivePositivePairsTest, ArraySize105) {
+    std::vector<double> array(105, 1.0);  // массив из 105 положительных элементов
+    EXPECT_EQ(countConsecutivePositivePairs(array), 104);  // 104 пары
+}
+
+// Тесты на эквивалентные области данных
+
+TEST(CountConsecutivePositivePairsTest, MinBoundary) {
+    std::vector<double> array = { -DBL_MAX, -DBL_MAX };  // минимальные границы
+    EXPECT_EQ(countConsecutivePositivePairs(array), 0);  // нет положительных пар
+}
+
+TEST(CountConsecutivePositivePairsTest, WithinBounds) {
+    std::vector<double> array = { -1.0, 2.0, 3.0, -2.0, 4.0, 5.0 };
+    EXPECT_EQ(countConsecutivePositivePairs(array), 2);  // 2 положительные пары
+}
+
+TEST(CountConsecutivePositivePairsTest, MaxBoundary) {
+    std::vector<double> array = { DBL_MAX, DBL_MAX };  // максимальные границы
+    EXPECT_EQ(countConsecutivePositivePairs(array), 1);  // 1 положительная пара
+}
+
+// Тесты с ключевыми элементами
+
+TEST(CountConsecutivePositivePairsTest, KeyElementAtStart) {
+    std::vector<double> array = { 1.0, 1.0, -1.0, -2.0 };
+    EXPECT_EQ(countConsecutivePositivePairs(array), 1);
+}
+
+TEST(CountConsecutivePositivePairsTest, KeyElementInMiddle) {
+    std::vector<double> array = { -1.0, 1.0, 1.0, -2.0 };
+    EXPECT_EQ(countConsecutivePositivePairs(array), 1);
+}
+
+TEST(CountConsecutivePositivePairsTest, KeyElementAtEnd) {
+    std::vector<double> array = { -1.0, -2.0, 1.0, 1.0 };
+    EXPECT_EQ(countConsecutivePositivePairs(array), 1);
+}
+
+TEST(CountConsecutivePositivePairsTest, NoPositiveElements) {
+    std::vector<double> array = { -1.0, -2.0, -3.0, -4.0 };
+    EXPECT_EQ(countConsecutivePositivePairs(array), 0);
 }
