@@ -1,15 +1,15 @@
-# Версия cmake
-cmake_minimum_required(VERSION 3.26)
-# Имя проекта
+cmake_minimum_required(VERSION 3.10)
 project(LR1)
 
-# Версия С++
-set(CMAKE_CXX_STANDARD 17)
+# Добавляем библиотеку lr1_lib
+add_library(lr1_lib lib/lr1.cpp)
 
-# Добавление в проект lib, bin
-add_subdirectory(lib)
-add_subdirectory(bin)
+# Включаем путь к заголовочным файлам
+target_include_directories(lr1_lib PUBLIC ${PROJECT_SOURCE_DIR}/lib)
 
-
-enable_testing()
-add_subdirectory(tests)
+# Подключаем CMakeLists.txt для тестов
+option(test "Build all tests." ON)
+if(test)
+    enable_testing()
+    add_subdirectory(tests)
+endif()

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#include <lib/lr1.h>
+#include "../lib/lr1.h"
 using namespace std;
 
 int main() {

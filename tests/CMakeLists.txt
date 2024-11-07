@@ -22,9 +22,8 @@ target_link_libraries(
     GTest::gtest_main
 )
 
-# ”казываем правильный путь к заголовочным файлам
+# ”казываем путь к заголовочным файлам только здесь
 target_include_directories(lr1_tests PUBLIC ${PROJECT_SOURCE_DIR}/lib)
 
 include(GoogleTest)
-
 gtest_discover_tests(lr1_tests)

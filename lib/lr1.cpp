@@ -1,4 +1,4 @@
-#include "lr1.h"
+#include "../lib/lr1.h"
 using namespace std;
 
 int countConsecutivePositivePairs(const std::vector<double>& array) {
