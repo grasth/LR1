@@ -21,4 +21,4 @@ jobs:
         cmake_options: -Dtest=ON
 
     - name: Debug CMake
-        run: cmake --build build --verbose
+      run: cmake --build build --verbose
