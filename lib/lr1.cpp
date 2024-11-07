@@ -1,13 +1,12 @@
 #include "lr1.h"
+using namespace std;
 
-std::pair<int, int> countAndSum(const std::vector<int>& array) {
+int countConsecutivePositivePairs(const std::vector<double>& array) {
     int count = 0;
-    int total = 0;
-    for (int num : array) {
-        if (num % 5 == 0 && num % 7 != 0) {
+    for (size_t i = 1; i < array.size(); ++i) {
+        if (array[i] > 0 && array[i - 1] > 0) {
             count++;
-            total += num;
         }
     }
-    return std::make_pair(count, total);
+    return count;
 }

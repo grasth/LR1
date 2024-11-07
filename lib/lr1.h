@@ -2,4 +2,4 @@
 
 #include <vector>
 
-std::pair<int, int> countAndSum(const std::vector<int>& array);
+int countConsecutivePositivePairs(const std::vector<double>& array);

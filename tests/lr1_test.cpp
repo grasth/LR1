@@ -1,73 +1,45 @@
-#include <lib/lr1.h>
 #include <gtest/gtest.h>
 #include <vector>
-#include <utility>
 
-// Подробнее https://google.github.io/googletest/reference/testing.html
+using namespace std;
+
+// Объявление функции
+int countConsecutivePositivePairs(const std::vector<double>& array);
 
 // Тестовый класс
-class CountAndSumTest : public ::testing::Test {
+class ConsecutivePositivePairsTest : public ::testing::Test {
 protected:
-    // Здесь вы можете добавить дополнительные настройки для тестов
-    // в функции SetUp()
+    std::vector<double> arr;
+    int result;
+
     void SetUp() override {
-        // Например, инициализация данных
-        arr = {10, 14, 15, 20, 21, 25, 30};
+        arr = { 1.2, -2.5, 3.4, 4.5, -1.2, 6.7, 8.9 };
     }
-
-    // Здесь вы можете освободить ресурсы, если это необходимо
-    // в функции TearDown()
-    void TearDown() override {
-        // Например, очистка данных
-        arr.clear();
-    }
-
-    // Объявляем переменные, которые будут использоваться в тестах
-    std::vector<int> arr;
-    std::pair<int, int> result;
 };
 
-// Пример теста1
-TEST_F(CountAndSumTest, CTest1) {
-// Вызываем функцию countAndSum с тестовыми данными
-    result = countAndSum(arr);
-
-// Проверяем ожидаемые результаты
-    EXPECT_EQ(result.first, 5);
-    EXPECT_EQ(result.second, 100);
-}
-
-// Пример теста111111
-TEST_F(CountAndSumTest, CTest11111) {
-// Вызываем функцию countAndSum с тестовыми данными
-    result = countAndSum(arr);
-
-// Проверяем ожидаемые результаты
-    EXPECT_EQ(result.first, 5);
-    EXPECT_EQ(result.second, 100);
+// Пример теста 1
+TEST_F(ConsecutivePositivePairsTest, TestWithPositivePairs) {
+    result = countConsecutivePositivePairs(arr);
+    EXPECT_EQ(result, 3); // Ожидаем 3 пары подряд положительных чисел
 }
 
 // Пример теста 2
-TEST_F(CountAndSumTest, CTest2) {
-// Вызываем функцию countAndSum с тестовыми данными
-    result = countAndSum(arr);
-
-// Проверяем ожидаемые результаты
-    EXPECT_EQ(result.first, 15);
-    EXPECT_EQ(result.second, 100);
+TEST_F(ConsecutivePositivePairsTest, TestWithNoPositivePairs) {
+    arr = { -1.2, -2.5, -3.4, -4.5 };
+    result = countConsecutivePositivePairs(arr);
+    EXPECT_EQ(result, 0); // Ожидаем 0 пар подряд положительных чисел
 }
 
-// Пример теста3
-TEST(CountAndSumTest1, CTest3) {
-    // Объявляем переменные, которые будут использоваться в тесте
-    std::vector<int> arr;
-    std::pair<int, int> result;
-    // Инициализация данных
-    arr = {10, 14, 15, 20, 21, 25, 30, 35, 5};
-// Вызываем функцию countAndSum с тестовыми данными
-    result = countAndSum(arr);
+// Пример теста 3
+TEST_F(ConsecutivePositivePairsTest, TestWithSingleElement) {
+    arr = { 1.0 };
+    result = countConsecutivePositivePairs(arr);
+    EXPECT_EQ(result, 0); // Ожидаем 0 пар, так как только один элемент
+}
 
-// Проверяем ожидаемые результаты
-    EXPECT_EQ(result.first, 6);
-    EXPECT_EQ(result.second, 105);
+// Пример теста 4
+TEST_F(ConsecutivePositivePairsTest, TestWithAllPositivePairs) {
+    arr = { 1.0, 2.0, 3.0, 4.0 };
+    result = countConsecutivePositivePairs(arr);
+    EXPECT_EQ(result, 3); // Ожидаем 3 пары, так как все числа положительные
 }
